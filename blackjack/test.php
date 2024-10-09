@@ -44,7 +44,7 @@
             echo "<strong>Listo! Elige una carta</strong>";
         }
 
-        //Muestro una carta random
+        //Elijo una carta
         $miMano = [];
         if (isset($_POST['mostrar-carta'])) {
             $carta = array_shift($mazo);
