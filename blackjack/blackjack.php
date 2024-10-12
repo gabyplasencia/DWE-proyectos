@@ -8,45 +8,21 @@
 <body>
 
     <?php
-        // session_start();
-        // $palos = ["corazón", "diamante", "trebol", "pica"];
+        include('mazo.php');
+        session_start();
 
-        // $numeroCarta = [];
-        // for($i=1; $i <= 13; $i++){
-        //     switch ($i) {
-        //         case 1:
-        //             array_push($numeroCarta, "A");
-        //             break;
-        //         case 11:
-        //             array_push($numeroCarta, "J");
-        //             break;
-        //         case 12:
-        //             array_push($numeroCarta, "Q");
-        //             break;
-        //         case 13:
-        //             array_push($numeroCarta, "K");
-        //             break;
-        //         default:
-        //             array_push($numeroCarta, $i);
-        //             break;
-        //     }
-        // }
-        
-        // $mazo = [];
-        // //Armo el mazo
-        // for($i=0; $i<count($palos); $i++){
-        //     for($j=0; $j<count($numeroCarta); $j++){
-        //         array_push($mazo, "$numeroCarta[$j] de $palos[$i]");
-        //     }
-        // }
+        if (!isset($_SESSION['mazo'])) {
+            $mazo = new Mazo();   // Crear un nuevo mazo   
+            $_SESSION['mazo'] = $mazo; // Guardar el mazo en la sesión
+        } else {
+            $mazo = $_SESSION['mazo']; // Recuperar el mazo de la sesión
+        }
 
-        // //Mezclo el mazo
-        // if (isset($_POST['mezclar'])) {
-        //     shuffle($mazo);
-        //     echo "<strong>Listo! Elige una carta</strong>";
-        // }
+        //Muestro el mazo
+        if (isset($_POST['mostrarMazo'])) {
+            $mazo->mostrarMazo();
+        }
 
-        
         // if (!isset($_SESSION['miMano'])) {
         //     $_SESSION['miMano'] = [];
         // }
@@ -62,33 +38,10 @@
         //         }
         // }
 
-
-        session_start();
-
-        include('mazo.php');
-
-        $mazo = $_SESSION['mazo'];
-
-        if( !isset($mazo)){
-            $mazo = new Mazo();
-        }
-
-        //Muestro el mazo
-        if (isset($_POST['mostrarMazo'])) {
-            $mazo->mostrarMazo();
-        }
-
-        //Mezclo el mazo
-        if (isset($_POST['mezclar'])) {
-            $mazo->mezclarMazo();
-            echo "<strong>Listo! Elige una carta</strong>";
-        }
-
         $_SESSION['mazo'] = $mazo;
     ?>
 
-    <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
-        <button type="submit" name="mezclar">Mezclar las cartas</button>
+    <form action="<?php  echo $_SERVER['PHP_SELF'];?>" method="post">
         <button type="submit" name="mostrar-carta">Elegir una carta</button>
         <button type="submit" name="mostrarMazo">Mostrar mazo</button>
     </form>

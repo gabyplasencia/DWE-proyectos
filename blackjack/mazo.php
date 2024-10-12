@@ -33,6 +33,8 @@
                     array_push($this->mazo, "$numeroCarta[$j] de $palos[$i]");
                 }
             }
+
+            shuffle($this->mazo);
         }
 
         //Muestro el mazo
