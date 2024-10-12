@@ -2,6 +2,7 @@
     class Mazo {
         
         private $mazo = [];
+        private $miMano = [];
 
         public function __construct() {
             $palos = ["corazón", "diamante", "trebol", "pica"];
@@ -33,7 +34,7 @@
                     array_push($this->mazo, "$numeroCarta[$j] de $palos[$i]");
                 }
             }
-
+            //Mezclo el mazo
             shuffle($this->mazo);
         }
 
@@ -42,11 +43,20 @@
             print_r($this->mazo);
         }
 
-        //Mezclo el mazo
-        public function mezclarMazo(){
-            shuffle($this->mazo);
-            print_r($this->mazo);
+        //Saco una carta y guardo la mano
+        public function sacarCartar(){
+            //Guardo las tres primeras cartas
+            if(count($this->miMano) < 3){
+            $carta = array_pop($this->mazo);
+            echo "<strong>$carta</strong>\n";
+            array_push($this->miMano, $carta);
+            print_r($this->miMano);
+            }else{
+                print_r($this->miMano);
+                echo "\n<p>No puedes elegir mas</p>";
+            }
         }
+
 
     }
 ?>

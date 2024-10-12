@@ -22,7 +22,10 @@
         if (isset($_POST['mostrarMazo'])) {
             $mazo->mostrarMazo();
         }
-
+        
+        if (isset($_POST['mostrar-carta'])) {
+            $mazo->sacarCartar();        
+        }
         // if (!isset($_SESSION['miMano'])) {
         //     $_SESSION['miMano'] = [];
         // }
