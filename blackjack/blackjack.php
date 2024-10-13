@@ -12,10 +12,10 @@
         session_start();
 
         if (!isset($_SESSION['mazo'])) {
-            $mazo = new Mazo();   // Crear un nuevo mazo   
-            $_SESSION['mazo'] = $mazo; // Guardar el mazo en la sesión
+            $mazo = new Mazo();     
+            $_SESSION['mazo'] = $mazo; 
         } else {
-            $mazo = $_SESSION['mazo']; // Recuperar el mazo de la sesión
+            $mazo = $_SESSION['mazo']; 
         }
 
         //Muestro el mazo
@@ -26,20 +26,6 @@
         if (isset($_POST['mostrar-carta'])) {
             $mazo->sacarCartar();        
         }
-        // if (!isset($_SESSION['miMano'])) {
-        //     $_SESSION['miMano'] = [];
-        // }
-        // //Muestro una carta random
-        // if (isset($_POST['mostrar-carta'])) {
-        //     $carta = array_shift($mazo);
-        //     echo "<strong>$carta</strong>";
-
-        //         //Guardo las tres primeras cartas
-        //         if(count($_SESSION['miMano']) < 15){
-        //             array_push($_SESSION['miMano'], $carta);
-        //             print_r($_SESSION['miMano']);
-        //         }
-        // }
 
         $_SESSION['mazo'] = $mazo;
     ?>
