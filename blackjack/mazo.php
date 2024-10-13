@@ -3,6 +3,7 @@
         
         private $mazo = [];
         private $miMano = [];
+        private $sumaCartas = 0;
 
         public function __construct() {
             $palos = ["corazón", "diamante", "trebol", "pica"];
@@ -45,18 +46,50 @@
 
         //Saco una carta y guardo la mano
         public function sacarCartar(){
-            //Guardo las tres primeras cartas
-            if(count($this->miMano) < 3){
-            $carta = array_pop($this->mazo);
-            echo "<strong>$carta</strong>\n";
-            array_push($this->miMano, $carta);
-            print_r($this->miMano);
-            }else{
+            if($this->sumaCartas <= 21) {
+                $carta = array_pop($this->mazo);
+
+                echo "<strong>$carta</strong>\n";
+                array_push($this->miMano, $carta);
                 print_r($this->miMano);
-                echo "\n<p>No puedes elegir mas</p>";
+    
+                $arrayCarta = explode(" ", $carta);
+                $valorCarta = $arrayCarta[0];
+                switch ($valorCarta) {
+                    case "J":
+                        $valorCarta = 11;
+                        $this->sumaCartas = $this->sumaCartas + $valorCarta;
+                        break;
+                    case "Q":
+                        $valorCarta = 12;
+                        $this->sumaCartas = $this->sumaCartas + $valorCarta;
+                        break;
+                    case "K":
+                        $valorCarta = 13;
+                        $this->sumaCartas = $this->sumaCartas + $valorCarta;
+                        break;
+                    case "A":
+                        if($this->sumaCartas > 10) {
+                            $valorCarta = 1;
+                            $this->sumaCartas = $this->sumaCartas + $valorCarta;
+                        }else {
+                            $valorCarta = 11;
+                            $this->sumaCartas = $this->sumaCartas + $valorCarta;
+                        }
+    
+                        break;
+                    default:
+                        $this->sumaCartas = $this->sumaCartas + $valorCarta;
+                        break;
+            }
+
+            echo "\n<strong>Llevas acumulado un $this->sumaCartas</strong>";
+
+            }else {
+                echo "\n<strong>Llegaste al límite</strong>";
+                echo "\n<strong>Acumulaste un $this->sumaCartas</strong>";
             }
         }
-
 
     }
 ?>
