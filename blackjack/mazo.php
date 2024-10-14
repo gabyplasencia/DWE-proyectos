@@ -87,7 +87,7 @@
                         break;
             }
 
-            if($this->sumaCartas >= 21) {
+            if($this->sumaCartas > 21) {
                 echo "\n<strong>Perdiste :( \n Llegaste a $this->sumaCartas</strong>";
             }else{
                 echo "\n<strong>Llevas acumulado un $this->sumaCartas</strong>";
@@ -96,6 +96,10 @@
                 echo "\n<strong>Llegaste al límite</strong>";
                 echo "\n<strong>Acumulaste un $this->sumaCartas</strong>";
             }
+        }
+
+        public function mePlanto() {
+            echo "<strong>Te quedas en $this->sumaCartas</strong>";
         }
 
     }
