@@ -49,10 +49,14 @@
             if($this->sumaCartas <= 21) {
                 $carta = array_pop($this->mazo);
 
-                echo "<strong>$carta</strong>\n";
+                echo "<strong>Sacaste $carta</strong>\n";
                 array_push($this->miMano, $carta);
-                print_r($this->miMano);
-    
+                $visualizarMano = " ";
+                foreach($this->miMano as $value) {
+                    $visualizarMano .= "- ". $value." - ";
+                }
+                echo "<p>En tu mano tienes $visualizarMano</p>";
+
                 $arrayCarta = explode(" ", $carta);
                 $valorCarta = $arrayCarta[0];
                 switch ($valorCarta) {
@@ -83,8 +87,11 @@
                         break;
             }
 
-            echo "\n<strong>Llevas acumulado un $this->sumaCartas</strong>";
-
+            if($this->sumaCartas >= 21) {
+                echo "\n<strong>Perdiste :( \n Llegaste a $this->sumaCartas</strong>";
+            }else{
+                echo "\n<strong>Llevas acumulado un $this->sumaCartas</strong>";
+            }
             }else {
                 echo "\n<strong>Llegaste al límite</strong>";
                 echo "\n<strong>Acumulaste un $this->sumaCartas</strong>";
