@@ -32,6 +32,12 @@
         if (isset($_POST['me-planto'])) {
             $mazo->mePlanto();
         }
+
+        //Partida nueva
+        if (isset($_POST['partida-nueva'])) {
+            session_destroy();
+            header("Location: " . $_SERVER['PHP_SELF']);
+        }
         
         $_SESSION['mazo'] = $mazo;
     ?>
@@ -40,6 +46,9 @@
         <button type="submit" name="mostrar-carta">Elegir una carta</button>
         <button type="submit" name="me-planto">Me planto</button>
         <button type="submit" name="mostrarMazo">Mostrar mazo</button>
+        <button type="submit" name="partida-nueva">Partida nueva</button>
     </form>
 </body>
 </html>
+
+
