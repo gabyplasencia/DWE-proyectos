@@ -102,5 +102,10 @@
             echo "<strong>Te quedas en $this->sumaCartas</strong>";
         }
 
+        public function partidaNueva() {
+            session_destroy();
+            header("Location: blackjack.php");
+        }
+
     }
 ?>

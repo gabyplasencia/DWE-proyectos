@@ -35,8 +35,7 @@
 
         //Partida nueva
         if (isset($_POST['partida-nueva'])) {
-            session_destroy();
-            header("Location: " . $_SERVER['PHP_SELF']);
+            $mazo->partidaNueva();
         }
         
         $_SESSION['mazo'] = $mazo;
