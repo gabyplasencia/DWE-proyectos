@@ -11,6 +11,16 @@ class Mazo extends Model {
     private $sumaCartas = 0;
 
     public function __construct() {
+        // $carta = new Carta();
+        // //Armo el mazo
+        // foreach($carta->getPalos() as $palo) {
+        //     foreach($carta->getNumeroCarta() as $numero) {
+        //         array_push($this->mazo, "$numero de $palo");
+        //         dd("numero".$this->$numero);
+        //     }
+        // }
+        // //Mezclo el mazo
+        // shuffle($this->mazo);
         $palos = ["corazón", "diamante", "trebol", "pica"];
 
         $numeroCarta = [];
@@ -42,11 +52,12 @@ class Mazo extends Model {
         }
         //Mezclo el mazo
         shuffle($this->mazo);
+        //dd($this->mazo);
     }
 
     //Muestro el mazo
-    public function mostrarMazo(){
-        print_r($this->mazo);
+    public function getMazo(){
+        return $this->mazo;
     }
 
     //Saco una carta y guardo la mano

@@ -10,15 +10,17 @@ class BlackjackController extends Controller {
     
     public function mostrarMazo(Request $request) { 
         if (!session()->has('mazo')) { 
-           
             $mazo = new Mazo();
             session()->put('mazo', $mazo);//introduce datos
+            //dd($mazo);
         } else {
-            $mazo = session('mazo');//recupera datos
+            $mazo = session()->get('mazo'); //recupera datos
+            dd($mazo);
         }
-
-        $accion = $mazo->mostrarMazo();
         
-        return view('blackjack', compact('mazo', 'accion'));
+        $mazoActual = $mazo->getMazo();
+        //dd($mazoActual);
+
+        return view('blackjack', compact('mazoActual'));
     }
 }
