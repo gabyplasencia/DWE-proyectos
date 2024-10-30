@@ -51,14 +51,18 @@
 
                 echo "<strong>Sacaste $carta</strong>\n";
                 array_push($this->miMano, $carta);
+
+                //Muestro la mano del jugador
                 $visualizarMano = " ";
                 foreach($this->miMano as $value) {
                     $visualizarMano .= "- ". $value." - ";
                 }
                 echo "<p>En tu mano tienes $visualizarMano</p>";
 
+                //Vuelvo un array el string de la carta y cojo el primer valor
                 $arrayCarta = explode(" ", $carta);
                 $valorCarta = $arrayCarta[0];
+                //Segun la carta (número o letra) hago la asignación y suma del total
                 switch ($valorCarta) {
                     case "J":
                         $valorCarta = 11;
@@ -85,23 +89,22 @@
                     default:
                         $this->sumaCartas = $this->sumaCartas + $valorCarta;
                         break;
-            }
+                }
 
-            if($this->sumaCartas > 21) {
-                echo "\n<strong>Perdiste :( \n Llegaste a $this->sumaCartas</strong>";
-            }else{
-                echo "\n<strong>Llevas acumulado un $this->sumaCartas</strong>";
-            }
-            }else {
-                echo "\n<strong>Llegaste al límite</strong>";
-                echo "\n<strong>Acumulaste un $this->sumaCartas</strong>";
+                if($this->sumaCartas > 21) {
+                    echo "\n<strong>Perdiste :( \n Llegaste a $this->sumaCartas</strong>";
+                }else{
+                    echo "\n<strong>Llevas acumulado un $this->sumaCartas</strong>";
+                }
             }
         }
 
+        //El jugador decide si se queda con su mano actual
         public function mePlanto() {
             echo "<strong>Te quedas en $this->sumaCartas</strong>";
         }
 
+        //Borro la sesion y vuelvo a cargar la página
         public function partidaNueva() {
             session_destroy();
             header("Location: blackjack.php");
