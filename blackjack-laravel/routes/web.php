@@ -8,3 +8,4 @@ Route::get('/', function () {
 });
 
 Route::any('/blackjack/mostrarmazo', [BlackjackController::class, 'mostrarMazo']);
+Route::any('/blackjack/sacarcarta', [BlackjackController::class, 'sacarCarta']);

@@ -8,19 +8,11 @@ class Mazo extends Model {
             
     private $mazo = [];
     private $miMano = [];
+    private $ultimaCarta = " ";
     private $sumaCartas = 0;
 
     public function __construct() {
-        // $carta = new Carta();
-        // //Armo el mazo
-        // foreach($carta->getPalos() as $palo) {
-        //     foreach($carta->getNumeroCarta() as $numero) {
-        //         array_push($this->mazo, "$numero de $palo");
-        //         dd("numero".$this->$numero);
-        //     }
-        // }
-        // //Mezclo el mazo
-        // shuffle($this->mazo);
+
         $palos = ["corazón", "diamante", "trebol", "pica"];
 
         $numeroCarta = [];
@@ -52,12 +44,29 @@ class Mazo extends Model {
         }
         //Mezclo el mazo
         shuffle($this->mazo);
-        //dd($this->mazo);
+        //dd($this->mazo); 
     }
-
+    
+    public function setMazo(array $mazo) {
+        $this->mazo = $mazo;
+    }
+    
     //Muestro el mazo
     public function getMazo(){
         return $this->mazo;
+        dd($this->getMazo());
+    }
+
+
+    //prueba
+    public function pruebaSacarCarta(){
+        $carta = array_pop($this->mazo);
+        array_push($this->miMano, $carta);
+        return  $carta;
+    }
+    //prueba
+    public function getMiMano() {
+        return $this->miMano;
     }
 
     //Saco una carta y guardo la mano
@@ -65,7 +74,7 @@ class Mazo extends Model {
         if($this->sumaCartas <= 21) {
             $carta = array_pop($this->mazo);
 
-            echo "<strong>Sacaste $carta</strong>\n";
+            //echo "<strong>Sacaste $carta</strong>\n";
             array_push($this->miMano, $carta);
 
             //Muestro la mano del jugador
@@ -73,7 +82,7 @@ class Mazo extends Model {
             foreach($this->miMano as $value) {
                 $visualizarMano .= "- ". $value." - ";
             }
-            echo "<p>En tu mano tienes $visualizarMano</p>";
+            //echo "<p>En tu mano tienes $visualizarMano</p>";
 
             //Vuelvo un array el string de la carta y cojo el primer valor
             $arrayCarta = explode(" ", $carta);
@@ -108,9 +117,9 @@ class Mazo extends Model {
             }
 
             if($this->sumaCartas > 21) {
-                echo "\n<strong>Perdiste :( \n Llegaste a $this->sumaCartas</strong>";
+                return "\n<strong>Perdiste :( \n Llegaste a $this->sumaCartas</strong>";
             }else{
-                echo "\n<strong>Llevas acumulado un $this->sumaCartas</strong>";
+                return "\n<strong>Llevas acumulado un $this->sumaCartas</strong>";
             }
         }
     }

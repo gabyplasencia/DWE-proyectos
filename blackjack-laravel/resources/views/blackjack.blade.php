@@ -11,14 +11,29 @@
     <form action="/blackjack/mostrarmazo" method="post">
         @csrf
         <button type="submit" name="mostrar-mazo" value="mostrar-mazo">Mostrar mazo</button>
-        <button type="submit" name="mostrar-carta" value="mostrar-carta">Elegir una carta</button>
-        <button type="submit" name="me-planto" value="me-planto">Me planto</button>
-        <button type="submit" name="partida-nueva" value="partida-nueva">Partida nueva</button>
     </form>
-    
+    <form action="/blackjack/sacarcarta" method="post">
+        @csrf
+        <button type="submit" name="mostrar-carta" value="mostrar-carta">Elegir una carta</button>
+    </form>
+    {{-- <form action="/blackjack/sacarcarta" method="post">
+        @csrf
+        <button type="submit" name="me-planto" value="me-planto">Me planto</button>
+    </form>
+    <form action="/blackjack/sacarcarta" method="post">
+        @csrf
+        <button type="submit" name="partida-nueva" value="partida-nueva">Partida nueva</button>
+    </form> --}}
 
     @isset($mazoActual)
         @foreach ($mazoActual as $carta)
+            <p>{{$carta}}</p>  
+        @endforeach
+    @endisset
+
+    @isset($miMano)
+        <strong>Mi mano</strong>
+        @foreach ($miMano as $carta)   
             <p>{{$carta}}</p>  
         @endforeach
     @endisset
