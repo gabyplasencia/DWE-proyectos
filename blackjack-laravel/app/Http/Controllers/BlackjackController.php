@@ -15,13 +15,15 @@ class BlackjackController extends Controller {
         session(['mazoActual' => $mazo->getMazo()]);
         session(['miMano' => $mazo->getMiMano()]);
         session(['sumaPuntos' => 0]);
+        session(['mePlanto' => false]);
         
         $mazoActual = session()->get('mazoActual');
         $miMano = session()->get('miMano');
         $sumaPuntos = session()->get('sumaPuntos');
+        $mePlanto = session()->get('mePlanto');
 
         //dd($miMano);
-        return view('blackjack');
+        return view('blackjack', compact('sumaPuntos', 'mePlanto'));
 
     }
 
@@ -39,6 +41,7 @@ class BlackjackController extends Controller {
         $mazoActual = session()->get('mazoActual');
         $miMano = session()->get('miMano');
         $sumaPuntos = session()->get('sumaPuntos');
+        $mePlanto = session()->get('mePlanto');
         
         if($sumaPuntos <= 21){
             $carta = array_pop($mazoActual);
@@ -76,11 +79,31 @@ class BlackjackController extends Controller {
                     break;
             }
         }
+        
+        if ($sumaPuntos > 21) {
+            $mePlanto = true;
+        }
 
         session()->put('mazoActual', $mazoActual);
         session()->put('miMano', $miMano);
         session()->put('sumaPuntos', $sumaPuntos);
+        session()->put('mePlanto', $mePlanto);
 
-        return view('blackjack', compact('miMano', 'sumaPuntos'));
+        return view('blackjack', compact('miMano', 'sumaPuntos', 'mePlanto'));
+    }
+
+    public function mePlanto(Request $request) {
+        $mazo = session()->get('mazo');
+        
+        $mazoActual = session()->get('mazoActual');
+        $miMano = session()->get('miMano');
+        $sumaPuntos = session()->get('sumaPuntos');
+        $mePlanto = session()->get('mePlanto');
+        
+        $mePlanto = true;
+
+        session()->put('mePlanto', $mePlanto);
+
+        return view('blackjack', compact('miMano', 'sumaPuntos', 'mePlanto'));
     }
 }

@@ -12,15 +12,18 @@
         @csrf
         <button type="submit" name="mostrar-mazo" value="mostrar-mazo">Mostrar mazo</button>
     </form>
-    <form action="/blackjack/sacarcarta" method="post">
-        @csrf
-        <button type="submit" name="mostrar-carta" value="mostrar-carta">Elegir una carta</button>
-    </form>
+    @if (!$mePlanto)
+        <form action="/blackjack/sacarcarta" method="post">
+            @csrf
+            <button type="submit" name="mostrar-carta" value="mostrar-carta">Elegir una carta</button>
+        </form>
+        <form action="/blackjack/meplanto" method="post">
+            @csrf
+            <button type="submit" name="me-planto" value="me-planto">Me planto</button>
+        </form>
+    @endif
+
     {{-- <form action="/blackjack/sacarcarta" method="post">
-        @csrf
-        <button type="submit" name="me-planto" value="me-planto">Me planto</button>
-    </form>
-    <form action="/blackjack/sacarcarta" method="post">
         @csrf
         <button type="submit" name="partida-nueva" value="partida-nueva">Partida nueva</button>
     </form> --}}
@@ -38,12 +41,16 @@
                 <p>{{$carta}}</p>  
             @endforeach
         </div>
-        @if($sumaPuntos < 21)
-        <strong>Llevas acumlulados {{$sumaPuntos}} puntos</strong>
+        @if($sumaPuntos <= 21)
+            <strong>Llevas acumulados {{$sumaPuntos}} puntos</strong>
         @else
-        <strong>Perdiste :( sumaste {{$sumaPuntos}} puntos</strong>
+            <strong>Perdiste :( sumaste {{$sumaPuntos}} puntos</strong>
         @endif
     @endisset
 
+    @if($mePlanto && $sumaPuntos <= 21)
+    <br>
+    <strong style="margin-top: 2rem;">Te quedas en {{$sumaPuntos}} puntos</strong>
+    @endif
 </body>
 </html>

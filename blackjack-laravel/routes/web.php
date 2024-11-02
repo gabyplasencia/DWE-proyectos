@@ -10,3 +10,4 @@ use Illuminate\Support\Facades\Route;
 Route::any('/blackjack', [BlackjackController::class, 'index']);
 Route::any('/blackjack/mostrarmazo', [BlackjackController::class, 'mostrarMazo']);
 Route::any('/blackjack/sacarcarta', [BlackjackController::class, 'sacarCarta']);
+Route::any('/blackjack/meplanto', [BlackjackController::class, 'mePlanto']);
