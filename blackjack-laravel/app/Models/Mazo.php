@@ -54,7 +54,7 @@ class Mazo extends Model {
     //Muestro el mazo
     public function getMazo(){
         return $this->mazo;
-        dd($this->getMazo());
+        //dd($this->getMazo());
     }
 
 
