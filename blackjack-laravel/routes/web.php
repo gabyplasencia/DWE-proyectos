@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Route;
 //     return view('blackjack');
 // });
 
-Route::any('/blackjack', [BlackjackController::class, 'index']);
+Route::any('/', [BlackjackController::class, 'index']);
 Route::any('/blackjack/mostrarmazo', [BlackjackController::class, 'mostrarMazo']);
 Route::any('/blackjack/sacarcarta', [BlackjackController::class, 'sacarCarta']);
 Route::any('/blackjack/meplanto', [BlackjackController::class, 'mePlanto']);
+Route::any('/blackjack/partidanueva', [BlackjackController::class, 'partidaNueva']);

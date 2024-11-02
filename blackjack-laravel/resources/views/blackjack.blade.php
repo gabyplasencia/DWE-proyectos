@@ -22,11 +22,10 @@
             <button type="submit" name="me-planto" value="me-planto">Me planto</button>
         </form>
     @endif
-
-    {{-- <form action="/blackjack/sacarcarta" method="post">
+    <form action="/blackjack/partidanueva" method="post">
         @csrf
         <button type="submit" name="partida-nueva" value="partida-nueva">Partida nueva</button>
-    </form> --}}
+    </form>
 
     @isset($mazoActual)
         @foreach ($mazoActual as $carta)

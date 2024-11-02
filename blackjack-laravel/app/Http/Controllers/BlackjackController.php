@@ -79,7 +79,7 @@ class BlackjackController extends Controller {
                     break;
             }
         }
-        
+
         if ($sumaPuntos > 21) {
             $mePlanto = true;
         }
@@ -105,5 +105,12 @@ class BlackjackController extends Controller {
         session()->put('mePlanto', $mePlanto);
 
         return view('blackjack', compact('miMano', 'sumaPuntos', 'mePlanto'));
+    }
+
+    public function partidaNueva() {
+
+        session()->flush();
+
+        return redirect('/'); 
     }
 }

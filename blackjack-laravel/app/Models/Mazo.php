@@ -8,7 +8,6 @@ class Mazo extends Model {
             
     private $mazo = [];
     private $miMano = [];
-    private $sumaCartas = 0;
 
     public function __construct() {
 
@@ -58,11 +57,5 @@ class Mazo extends Model {
 
     public function getMiMano() {
         return $this->miMano;
-    }
-
-    //Borro la sesion y vuelvo a cargar la página
-    public function partidaNueva() {
-        session_destroy();
-        header("Location: blackjack.php");
     }
 }
