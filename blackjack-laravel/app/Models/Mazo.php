@@ -8,7 +8,6 @@ class Mazo extends Model {
             
     private $mazo = [];
     private $miMano = [];
-    private $ultimaCarta = " ";
     private $sumaCartas = 0;
 
     public function __construct() {
@@ -57,14 +56,6 @@ class Mazo extends Model {
         //dd($this->getMazo());
     }
 
-
-    //prueba
-    public function pruebaSacarCarta(){
-        $carta = array_pop($this->mazo);
-        array_push($this->miMano, $carta);
-        return  $carta;
-    }
-    //prueba
     public function getMiMano() {
         return $this->miMano;
     }

@@ -33,9 +33,11 @@
 
     @isset($miMano)
         <strong>Mi mano</strong>
-        @foreach ($miMano as $carta)   
-            <p>{{$carta}}</p>  
-        @endforeach
+        <div style="display: flex; gap: 1rem;">
+            @foreach ($miMano as $carta)   
+                <p>{{$carta}}</p>  
+            @endforeach
+        </div>
     @endisset
 
 </body>
