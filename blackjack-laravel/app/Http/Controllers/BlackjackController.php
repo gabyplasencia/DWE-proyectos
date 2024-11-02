@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Crupier;
 use App\Models\Mazo;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -11,20 +12,27 @@ class BlackjackController extends Controller {
     public function index() {
 
         $mazo = new Mazo();
+        $crupier = new Crupier();
 
         session(['mazoActual' => $mazo->getMazo()]);
         session(['miMano' => $mazo->getMiMano()]);
+        session(['manoCrupier' => $crupier->getManoCrupier()]);
         session(['sumaPuntos' => 0]);
         session(['mePlanto' => false]);
         
         $mazoActual = session()->get('mazoActual');
         $miMano = session()->get('miMano');
+        $manoCrupier = session()->get('manoCrupier');
         $sumaPuntos = session()->get('sumaPuntos');
         $mePlanto = session()->get('mePlanto');
 
-        //dd($miMano);
-        return view('blackjack', compact('sumaPuntos', 'mePlanto'));
+        $carta = array_pop($mazoActual);
+        array_push($manoCrupier, $carta);
 
+        session()->put('mazoActual', $mazoActual);
+        session()->put('manoCrupier', $manoCrupier);
+        //dd($miMano);
+        return view('blackjack', compact('sumaPuntos', 'mePlanto', 'manoCrupier'));
     }
 
     public function mostrarMazo(Request $request) {
@@ -40,6 +48,7 @@ class BlackjackController extends Controller {
         
         $mazoActual = session()->get('mazoActual');
         $miMano = session()->get('miMano');
+        $manoCrupier = session()->get('manoCrupier');
         $sumaPuntos = session()->get('sumaPuntos');
         $mePlanto = session()->get('mePlanto');
         
@@ -86,10 +95,11 @@ class BlackjackController extends Controller {
 
         session()->put('mazoActual', $mazoActual);
         session()->put('miMano', $miMano);
+        session()->put('manoCrupier', $manoCrupier);
         session()->put('sumaPuntos', $sumaPuntos);
         session()->put('mePlanto', $mePlanto);
 
-        return view('blackjack', compact('miMano', 'sumaPuntos', 'mePlanto'));
+        return view('blackjack', compact('miMano', 'sumaPuntos', 'mePlanto', 'manoCrupier'));
     }
 
     public function mePlanto(Request $request) {
@@ -97,6 +107,7 @@ class BlackjackController extends Controller {
         
         $mazoActual = session()->get('mazoActual');
         $miMano = session()->get('miMano');
+        $manoCrupier = session()->get('manoCrupier');
         $sumaPuntos = session()->get('sumaPuntos');
         $mePlanto = session()->get('mePlanto');
         
@@ -104,7 +115,7 @@ class BlackjackController extends Controller {
 
         session()->put('mePlanto', $mePlanto);
 
-        return view('blackjack', compact('miMano', 'sumaPuntos', 'mePlanto'));
+        return view('blackjack', compact('miMano', 'sumaPuntos', 'mePlanto', 'manoCrupier'));
     }
 
     public function partidaNueva() {

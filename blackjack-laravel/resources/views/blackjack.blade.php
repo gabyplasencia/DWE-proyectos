@@ -33,23 +33,38 @@
         @endforeach
     @endisset
 
-    @isset($miMano)
-        <strong>Tu mano</strong>
-        <div style="display: flex; gap: 1rem;">
-            @foreach ($miMano as $carta)   
-                <p>{{$carta}}</p>  
-            @endforeach
+    <div style="display: flex; gap: 2rem;">
+        <div style="border-right: 2px solid black; padding-right: 2rem;">    
+            @isset($miMano)
+                <strong>Tu mano</strong>
+                <div style="display: flex; gap: 1rem;">
+                    @foreach ($miMano as $carta)   
+                        <p>{{$carta}}</p>  
+                    @endforeach
+                </div>
+                @if($sumaPuntos <= 21)
+                    <strong>Llevas acumulados {{$sumaPuntos}} puntos</strong>
+                @else
+                    <strong>Perdiste :( sumaste {{$sumaPuntos}} puntos</strong>
+                @endif
+            @endisset
+        
+            @if($mePlanto && $sumaPuntos <= 21)
+            <br>
+            <strong style="margin-top: 2rem;">Te quedas en {{$sumaPuntos}} puntos</strong>
+            @endif
         </div>
-        @if($sumaPuntos <= 21)
-            <strong>Llevas acumulados {{$sumaPuntos}} puntos</strong>
-        @else
-            <strong>Perdiste :( sumaste {{$sumaPuntos}} puntos</strong>
-        @endif
-    @endisset
+        <div>
+            @isset($manoCrupier)
+                <strong>Mano Crupier</strong>
+                <div style="display: flex; gap: 1rem;">
+                    @foreach ($manoCrupier as $carta)   
+                        <p>{{$carta}}</p>  
+                    @endforeach
+                </div>
+            @endisset
+        </div>
+    </div>
 
-    @if($mePlanto && $sumaPuntos <= 21)
-    <br>
-    <strong style="margin-top: 2rem;">Te quedas en {{$sumaPuntos}} puntos</strong>
-    @endif
 </body>
 </html>
