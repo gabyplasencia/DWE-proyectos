@@ -32,13 +32,17 @@
     @endisset
 
     @isset($miMano)
-        <strong>Mi mano</strong>
+        <strong>Tu mano</strong>
         <div style="display: flex; gap: 1rem;">
             @foreach ($miMano as $carta)   
                 <p>{{$carta}}</p>  
             @endforeach
         </div>
-        <strong>Llevas acumlulados {{$sumaPuntos}}</strong>
+        @if($sumaPuntos < 21)
+        <strong>Llevas acumlulados {{$sumaPuntos}} puntos</strong>
+        @else
+        <strong>Perdiste :( sumaste {{$sumaPuntos}} puntos</strong>
+        @endif
     @endisset
 
 </body>

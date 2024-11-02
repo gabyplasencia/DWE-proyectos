@@ -60,11 +60,6 @@ class Mazo extends Model {
         return $this->miMano;
     }
 
-    //El jugador decide si se queda con su mano actual
-    public function mePlanto() {
-        echo "<strong>Te quedas en $this->sumaCartas</strong>";
-    }
-
     //Borro la sesion y vuelvo a cargar la página
     public function partidaNueva() {
         session_destroy();
