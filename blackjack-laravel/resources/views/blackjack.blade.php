@@ -62,6 +62,11 @@
                         <p>{{$carta}}</p>  
                     @endforeach
                 </div>
+                @if($puntosCrupier <= 21)
+                    <strong>El crupier tiene {{$puntosCrupier}} puntos</strong>
+                @else
+                    <strong>El crupier perdio con {{$puntosCrupier}} puntos</strong>
+                @endif
             @endisset
         </div>
     </div>
