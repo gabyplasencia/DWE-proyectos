@@ -38,6 +38,7 @@
                 <p>{{$carta}}</p>  
             @endforeach
         </div>
+        <strong>Llevas acumlulados {{$sumaPuntos}}</strong>
     @endisset
 
 </body>

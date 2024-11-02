@@ -60,61 +60,6 @@ class Mazo extends Model {
         return $this->miMano;
     }
 
-    //Saco una carta y guardo la mano
-    public function sacarCartar(){
-        if($this->sumaCartas <= 21) {
-            $carta = array_pop($this->mazo);
-
-            //echo "<strong>Sacaste $carta</strong>\n";
-            array_push($this->miMano, $carta);
-
-            //Muestro la mano del jugador
-            $visualizarMano = " ";
-            foreach($this->miMano as $value) {
-                $visualizarMano .= "- ". $value." - ";
-            }
-            //echo "<p>En tu mano tienes $visualizarMano</p>";
-
-            //Vuelvo un array el string de la carta y cojo el primer valor
-            $arrayCarta = explode(" ", $carta);
-            $valorCarta = $arrayCarta[0];
-            //Segun la carta (número o letra) hago la asignación y suma del total
-            switch ($valorCarta) {
-                case "J":
-                    $valorCarta = 11;
-                    $this->sumaCartas = $this->sumaCartas + $valorCarta;
-                    break;
-                case "Q":
-                    $valorCarta = 12;
-                    $this->sumaCartas = $this->sumaCartas + $valorCarta;
-                    break;
-                case "K":
-                    $valorCarta = 13;
-                    $this->sumaCartas = $this->sumaCartas + $valorCarta;
-                    break;
-                case "A":
-                    if($this->sumaCartas > 10) {
-                        $valorCarta = 1;
-                        $this->sumaCartas = $this->sumaCartas + $valorCarta;
-                    }else {
-                        $valorCarta = 11;
-                        $this->sumaCartas = $this->sumaCartas + $valorCarta;
-                    }
-
-                    break;
-                default:
-                    $this->sumaCartas = $this->sumaCartas + $valorCarta;
-                    break;
-            }
-
-            if($this->sumaCartas > 21) {
-                return "\n<strong>Perdiste :( \n Llegaste a $this->sumaCartas</strong>";
-            }else{
-                return "\n<strong>Llevas acumulado un $this->sumaCartas</strong>";
-            }
-        }
-    }
-
     //El jugador decide si se queda con su mano actual
     public function mePlanto() {
         echo "<strong>Te quedas en $this->sumaCartas</strong>";
