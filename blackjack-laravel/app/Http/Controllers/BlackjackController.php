@@ -13,6 +13,7 @@ class BlackjackController extends Controller {
 
         $mazo = new Mazo();
         $crupier = new Crupier();
+        $crupierPara = false;
 
         session(['mazoActual' => $mazo->getMazo()]);
         session(['miMano' => $mazo->getMiMano()]);
@@ -40,7 +41,7 @@ class BlackjackController extends Controller {
         session()->put('manoCrupier', $manoCrupier);
         session()->put('puntosCrupier', $puntosCrupier);
         //dd($miMano);
-        return view('blackjack', compact('sumaPuntos', 'mePlanto', 'manoCrupier', 'puntosCrupier'));
+        return view('blackjack', compact('sumaPuntos', 'mePlanto', 'manoCrupier', 'puntosCrupier', 'crupierPara'));
     }
 
     public function valorCarta($numeroCarta, $puntosTotales) {
@@ -70,8 +71,12 @@ class BlackjackController extends Controller {
     }
 
     public function comprararPuntajes($misPuntos, $puntosCrupier) {
-        if($misPuntos > $puntosCrupier && $misPuntos < 21) {
+        if($misPuntos > $puntosCrupier && $misPuntos <= 21) {
             return true;
+        }else if($misPuntos < $puntosCrupier && $puntosCrupier > 21) {
+            return true;
+        }else if($misPuntos > $puntosCrupier && $misPuntos > 21) {
+            return false;
         }else if($misPuntos == $puntosCrupier) {
             return true;
         }else {
@@ -96,6 +101,9 @@ class BlackjackController extends Controller {
         $puntosCrupier = session()->get('puntosCrupier');
         $sumaPuntos = session()->get('sumaPuntos');
         $mePlanto = session()->get('mePlanto');
+
+        $yoGano = false;
+        $crupierPara = false;
         
         if($sumaPuntos <= 21){
             $carta = array_pop($mazoActual);
@@ -111,9 +119,9 @@ class BlackjackController extends Controller {
 
         if ($sumaPuntos > 21) {
             $mePlanto = true;
+            $crupierPara = true;
         }
 
-        $crupierPara = false;
         if($puntosCrupier < 16){
             $carta = array_pop($mazoActual);
             array_push($manoCrupier, $carta);
@@ -128,7 +136,19 @@ class BlackjackController extends Controller {
             $crupierPara = true;
         }
 
-        $yoGano = false;
+        if($puntosCrupier == 21) {
+            $crupierPara = true;
+        }
+        
+        if($puntosCrupier > 16) {
+            $crupierPara = true;
+        }
+        
+        if($puntosCrupier > 21) {
+            $crupierPara = true;
+            $mePlanto = true;
+        }
+
         if($mePlanto && $crupierPara){
             $yoGano=$this->comprararPuntajes($sumaPuntos, $puntosCrupier);
         }
@@ -154,23 +174,49 @@ class BlackjackController extends Controller {
         $mePlanto = session()->get('mePlanto');
         
         $mePlanto = true;
-
         $crupierPara = false;
-        if($puntosCrupier < 16){
-            $carta = array_pop($mazoActual);
-            array_push($manoCrupier, $carta);
+        $yoGano = false;
 
-            //Vuelvo un array el string de la carta y cojo el primer valor
-            $arrayCarta = explode(" ", $carta);
-            $numeroCarta = $arrayCarta[0];
-
-            $valorCarta = $this->valorCarta($numeroCarta, $puntosCrupier);
-            $puntosCrupier = $puntosCrupier + $valorCarta;
+        if($mePlanto == true && $puntosCrupier < $sumaPuntos){
+            if($puntosCrupier < 16){
+                $carta = array_pop($mazoActual);
+                array_push($manoCrupier, $carta);
+    
+                //Vuelvo un array el string de la carta y cojo el primer valor
+                $arrayCarta = explode(" ", $carta);
+                $numeroCarta = $arrayCarta[0];
+    
+                $valorCarta = $this->valorCarta($numeroCarta, $puntosCrupier);
+                $puntosCrupier = $puntosCrupier + $valorCarta;
+                $crupierPara = true;
+            }else {
+                $crupierPara = true;
+            }
         }else {
-            $crupierPara = true;
+            if($puntosCrupier < 16){
+                $carta = array_pop($mazoActual);
+                array_push($manoCrupier, $carta);
+    
+                //Vuelvo un array el string de la carta y cojo el primer valor
+                $arrayCarta = explode(" ", $carta);
+                $numeroCarta = $arrayCarta[0];
+    
+                $valorCarta = $this->valorCarta($numeroCarta, $puntosCrupier);
+                $puntosCrupier = $puntosCrupier + $valorCarta;
+            }else {
+                $crupierPara = true;
+            }
         }
 
-        $yoGano = false;
+        if($puntosCrupier == 21) {
+            $crupierPara = true;
+        }else if($puntosCrupier > 16) {
+            $crupierPara = true;
+        }else if($puntosCrupier > 21) {
+            $crupierPara = true;
+            $mePlanto = true;
+        }
+
         if($mePlanto && $crupierPara){
             $yoGano=$this->comprararPuntajes($sumaPuntos, $puntosCrupier);
         }

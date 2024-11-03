@@ -48,24 +48,21 @@
                     @endforeach
                 </div>
                 @if($sumaPuntos <= 21)
-                    <strong>Llevas acumulados {{$sumaPuntos}} puntos</strong>
+                    <p>Llevas acumulados <strong> {{$sumaPuntos}} </strong>puntos</p>
                 @else
                     <strong style="color:red;">Perdiste :( sumaste {{$sumaPuntos}} puntos</strong>
                 @endif
             @endisset
         
             @if($mePlanto && $sumaPuntos <= 21)
-                <br>
-                <strong style="margin-top: 2rem;">Te plantas con {{$sumaPuntos}} puntos</strong>
+                <p>Te plantas con {{$sumaPuntos}} puntos</p>
             @endif
 
             @if($mePlanto && $crupierPara)
                 @if ($yoGano)
-                    <br>
-                    <strong style="margin-top: 2rem; color:green;">Ganaste!!</strong>
+                    <strong style=" color:green;">Ganaste!!</strong>
                 @else
-                    <br>
-                    <strong style="margin-top: 2rem; color:red;">Lo siento...</strong>
+                    <strong style=" color:red;">Lo siento...</strong>
                 @endif
             @endif
         </div>
@@ -78,19 +75,21 @@
                     @endforeach
                 </div>
                 @if($puntosCrupier <= 21)
-                    <strong>El crupier tiene {{$puntosCrupier}} puntos</strong>
+                    <p>El crupier tiene <strong>{{$puntosCrupier}}</strong>  puntos</p>
                 @else
-                    <strong style="color:red;">El crupier perdio con {{$puntosCrupier}} puntos</strong>
+                    <strong>El crupier perdio con {{$puntosCrupier}} puntos</strong>
                 @endif
             @endisset
 
+            @if($crupierPara && $puntosCrupier <= 21)
+                <p>El crupier se planta con {{$puntosCrupier}} puntos</p>
+            @endif
+
             @if($mePlanto && $crupierPara)
             @if ($yoGano)
-                <br>
-                <strong style="margin-top: 2rem; color:green;">Perdio el crupier :P</strong>
+                <strong>Perdio el crupier :P</strong>
             @else
-                <br>
-                <strong style="margin-top: 2rem; color:red;">Gano el crupier, intentalo de nuevo...</strong>
+                <strong>Gano el crupier, intentalo de nuevo...</strong>
             @endif
         @endif
         </div>
