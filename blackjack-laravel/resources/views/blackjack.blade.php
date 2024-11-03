@@ -8,11 +8,15 @@
 </head>
 <body>
     <h1>Blackjack</h1>
+    {{-- 
+    Lo tenia para comprobar que se mantenia el mismo mazo y que se retiraban cartas del mazo
     <form action="/blackjack/mostrarmazo" method="post">
         @csrf
         <button type="submit" name="mostrar-mazo" value="mostrar-mazo">Mostrar mazo</button>
-    </form>
-    @if (!$mePlanto)
+    </form> 
+    --}}
+    <div style="display: flex; gap:2rem; margin-bottom: 2rem;">
+        @if (!$mePlanto)
         <form action="/blackjack/sacarcarta" method="post">
             @csrf
             <button type="submit" name="mostrar-carta" value="mostrar-carta">Elegir una carta</button>
@@ -26,6 +30,7 @@
         @csrf
         <button type="submit" name="partida-nueva" value="partida-nueva">Partida nueva</button>
     </form>
+    </div>
 
     @isset($mazoActual)
         @foreach ($mazoActual as $carta)
@@ -45,13 +50,23 @@
                 @if($sumaPuntos <= 21)
                     <strong>Llevas acumulados {{$sumaPuntos}} puntos</strong>
                 @else
-                    <strong>Perdiste :( sumaste {{$sumaPuntos}} puntos</strong>
+                    <strong style="color:red;">Perdiste :( sumaste {{$sumaPuntos}} puntos</strong>
                 @endif
             @endisset
         
             @if($mePlanto && $sumaPuntos <= 21)
-            <br>
-            <strong style="margin-top: 2rem;">Te quedas en {{$sumaPuntos}} puntos</strong>
+                <br>
+                <strong style="margin-top: 2rem;">Te plantas con {{$sumaPuntos}} puntos</strong>
+            @endif
+
+            @if($mePlanto && $crupierPara)
+                @if ($yoGano)
+                    <br>
+                    <strong style="margin-top: 2rem; color:green;">Ganaste!!</strong>
+                @else
+                    <br>
+                    <strong style="margin-top: 2rem; color:red;">Lo siento...</strong>
+                @endif
             @endif
         </div>
         <div>
@@ -65,9 +80,19 @@
                 @if($puntosCrupier <= 21)
                     <strong>El crupier tiene {{$puntosCrupier}} puntos</strong>
                 @else
-                    <strong>El crupier perdio con {{$puntosCrupier}} puntos</strong>
+                    <strong style="color:red;">El crupier perdio con {{$puntosCrupier}} puntos</strong>
                 @endif
             @endisset
+
+            @if($mePlanto && $crupierPara)
+            @if ($yoGano)
+                <br>
+                <strong style="margin-top: 2rem; color:green;">Perdio el crupier :P</strong>
+            @else
+                <br>
+                <strong style="margin-top: 2rem; color:red;">Gano el crupier, intentalo de nuevo...</strong>
+            @endif
+        @endif
         </div>
     </div>
 

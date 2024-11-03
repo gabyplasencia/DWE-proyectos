@@ -69,6 +69,16 @@ class BlackjackController extends Controller {
         }
     }
 
+    public function comprararPuntajes($misPuntos, $puntosCrupier) {
+        if($misPuntos > $puntosCrupier && $misPuntos < 21) {
+            return true;
+        }else if($misPuntos == $puntosCrupier) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     public function mostrarMazo(Request $request) {
 
         $mazoActual = session()->get('mazoActual');
@@ -103,7 +113,8 @@ class BlackjackController extends Controller {
             $mePlanto = true;
         }
 
-        if($puntosCrupier < 18){
+        $crupierPara = false;
+        if($puntosCrupier < 16){
             $carta = array_pop($mazoActual);
             array_push($manoCrupier, $carta);
 
@@ -113,6 +124,13 @@ class BlackjackController extends Controller {
 
             $valorCarta = $this->valorCarta($numeroCarta, $puntosCrupier);
             $puntosCrupier = $puntosCrupier + $valorCarta;
+        }else {
+            $crupierPara = true;
+        }
+
+        $yoGano = false;
+        if($mePlanto && $crupierPara){
+            $yoGano=$this->comprararPuntajes($sumaPuntos, $puntosCrupier);
         }
 
         session()->put('mazoActual', $mazoActual);
@@ -122,7 +140,7 @@ class BlackjackController extends Controller {
         session()->put('sumaPuntos', $sumaPuntos);
         session()->put('mePlanto', $mePlanto);
 
-        return view('blackjack', compact('miMano', 'sumaPuntos', 'mePlanto', 'manoCrupier', 'puntosCrupier'));
+        return view('blackjack', compact('miMano', 'sumaPuntos', 'mePlanto', 'manoCrupier', 'puntosCrupier', 'crupierPara', 'yoGano'));
     }
 
     public function mePlanto(Request $request) {
@@ -137,7 +155,8 @@ class BlackjackController extends Controller {
         
         $mePlanto = true;
 
-        if($puntosCrupier < 18){
+        $crupierPara = false;
+        if($puntosCrupier < 16){
             $carta = array_pop($mazoActual);
             array_push($manoCrupier, $carta);
 
@@ -147,13 +166,20 @@ class BlackjackController extends Controller {
 
             $valorCarta = $this->valorCarta($numeroCarta, $puntosCrupier);
             $puntosCrupier = $puntosCrupier + $valorCarta;
+        }else {
+            $crupierPara = true;
+        }
+
+        $yoGano = false;
+        if($mePlanto && $crupierPara){
+            $yoGano=$this->comprararPuntajes($sumaPuntos, $puntosCrupier);
         }
 
         session()->put('mePlanto', $mePlanto);
         session()->put('manoCrupier', $manoCrupier);
         session()->put('puntosCrupier', $puntosCrupier);
 
-        return view('blackjack', compact('miMano', 'sumaPuntos', 'mePlanto', 'manoCrupier', 'puntosCrupier'));
+        return view('blackjack', compact('miMano', 'sumaPuntos', 'mePlanto', 'manoCrupier', 'puntosCrupier', 'crupierPara', 'yoGano'));
     }
 
     public function partidaNueva() {
