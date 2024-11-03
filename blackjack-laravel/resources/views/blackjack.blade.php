@@ -59,10 +59,14 @@
             @endif
             <br>
             @if($mePlanto && $crupierPara)
-                @if ($yoGano)
-                    <strong style="color:green; font-size: 1.5rem;">Yuju!! GANASTE</strong>
+                @if($puntosCrupier > 21 && $sumaPuntos > 21)
+                <strong style="color:red; font-size: 1.5rem;">Que mal... AMBOS PIERDEN! </strong>
                 @else
-                    <strong style="color:red; font-size: 1.5rem;">Lo siento... PERDISTE</strong>
+                    @if ($yoGano)
+                        <strong style="color:green; font-size: 1.5rem;">Yuju!! GANASTE</strong>
+                    @else
+                        <strong style="color:red; font-size: 1.5rem;">Lo siento... PERDISTE</strong>
+                    @endif
                 @endif
             @endif
         </div>
@@ -88,12 +92,14 @@
             <br>
             @if($mePlanto && $crupierPara)
                 @if($puntosCrupier > 21 && $sumaPuntos > 21)
-                @endif
+                    <strong>What!</strong>
+                @else
                     @if ($yoGano)
                         <strong>Perdio el crupier :P</strong>
                     @else
                         <strong>Gano el crupier, intentalo de nuevo...</strong>
                     @endif
+                @endif
             @endif
         </div>
     </div>
