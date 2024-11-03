@@ -50,22 +50,23 @@
                 @if($sumaPuntos <= 21)
                     <p>Llevas acumulados <strong> {{$sumaPuntos}} </strong>puntos</p>
                 @else
-                    <strong style="color:red;">Perdiste :( sumaste {{$sumaPuntos}} puntos</strong>
+                    <strong style="color:red;">Ups :( sumaste {{$sumaPuntos}} puntos</strong>
                 @endif
             @endisset
         
             @if($mePlanto && $sumaPuntos <= 21)
-                <p>Te plantas con {{$sumaPuntos}} puntos</p>
+                <strong>Te plantas con {{$sumaPuntos}} puntos</strong>
             @endif
-
+            <br>
             @if($mePlanto && $crupierPara)
                 @if ($yoGano)
-                    <strong style=" color:green;">Ganaste!!</strong>
+                    <strong style="color:green; font-size: 1.5rem;">Yuju!! GANASTE</strong>
                 @else
-                    <strong style=" color:red;">Lo siento...</strong>
+                    <strong style="color:red; font-size: 1.5rem;">Lo siento... PERDISTE</strong>
                 @endif
             @endif
         </div>
+
         <div>
             @isset($manoCrupier)
                 <strong>Mano Crupier</strong>
@@ -77,21 +78,23 @@
                 @if($puntosCrupier <= 21)
                     <p>El crupier tiene <strong>{{$puntosCrupier}}</strong>  puntos</p>
                 @else
-                    <strong>El crupier perdio con {{$puntosCrupier}} puntos</strong>
+                <strong>El crupier perdio con {{$puntosCrupier}} puntos</strong>
                 @endif
             @endisset
 
             @if($crupierPara && $puntosCrupier <= 21)
-                <p>El crupier se planta con {{$puntosCrupier}} puntos</p>
+                <strong>El crupier se planta con {{$puntosCrupier}} puntos</strong>
             @endif
-
+            <br>
             @if($mePlanto && $crupierPara)
-            @if ($yoGano)
-                <strong>Perdio el crupier :P</strong>
-            @else
-                <strong>Gano el crupier, intentalo de nuevo...</strong>
+                @if($puntosCrupier > 21 && $sumaPuntos > 21)
+                @endif
+                    @if ($yoGano)
+                        <strong>Perdio el crupier :P</strong>
+                    @else
+                        <strong>Gano el crupier, intentalo de nuevo...</strong>
+                    @endif
             @endif
-        @endif
         </div>
     </div>
 
